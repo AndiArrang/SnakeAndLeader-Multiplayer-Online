@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Game Ular Tangga Multiplayer</title>
+  <!-- <link rel="stylesheet" href="style.css"> -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+ <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- container loby -->
+  <div class="container-loby">
+    <div id="alert-container" class="alert alert-primary" role="alert">
+    </div>
+    <div class="header">
+      <h1>GAME ULAR TANGGA KPU</h1>
+    </div>
+    <div id="rooms">
+      
+    </div>
+    <div class="footer">
+    </div>
+  </div> 
+
+   <!-- container room -->
+   <div class=" container-fluid container-room">
+
+    <div id="btn-leave-container">
+     <button type="button" class="btn btn-danger mt-2" onclick="leaveRoom()">Exit</button>
+    </div>
+    <div class="container mt-2" id="alert-answer" ></div>
+    
+    <!-- arena -->
+    <div class="container papan">
+      <table id="gameBoard"></table>
+    </div>
+    
+    <!-- info-room -->
+    <div class="container info-room mt-5">
+      <div class="nama-room"></div>
+      
+      <div id="players">
+      </div>
+  
+      <div class="container" id="question">
+        <p id="questionText"> </p>
+        <input type="text" id="answerInput" class="form-control mt-2" placeholder="Jawaban">
+        <button id="answerButton" type="button" class="btn btn-primary mt-2">Submit</button>
+      </div>
+    
+      <div class="container" id="startGame">
+        <button  type="button" class="btn btn-success" id="btn-mulaiGame" onclick="startGame()"> Mulai </button>
+        <button type="button" class="btn btn-danger" id="btn-resetGame" onclick="resetGame()"> Reset game </button>
+      </div>
+
+      
+    <!-- dadu -->
+      <div id='dice1' class="dice dice-one">
+        <div id="dice-one-side-one" class='side one'>
+          <div class="dot one-1"></div>
+        </div>
+        <div id="dice-one-side-two" class='side two'>
+          <div class="dot two-1"></div>
+          <div class="dot two-2"></div>
+        </div>
+        <div id="dice-one-side-three" class='side three'>
+          <div class="dot three-1"></div>
+          <div class="dot three-2"></div>
+          <div class="dot three-3"></div>
+        </div>
+        <div id="dice-one-side-four" class='side four'>
+          <div class="dot four-1"></div>
+          <div class="dot four-2"></div>
+          <div class="dot four-3"></div>
+          <div class="dot four-4"></div>
+        </div>
+        <div id="dice-one-side-five" class='side five'>
+          <div class="dot five-1"></div>
+          <div class="dot five-2"></div>
+          <div class="dot five-3"></div>
+          <div class="dot five-4"></div>
+          <div class="dot five-5"></div>
+        </div>
+        <div id="dice-one-side-six" class='side six'>
+          <div class="dot six-1"></div>
+          <div class="dot six-2"></div>
+          <div class="dot six-3"></div>
+          <div class="dot six-4"></div>
+          <div class="dot six-5"></div>
+          <div class="dot six-6"></div>
+        </div>
+      </div>
+  
+     </div>
+   
+   </div>
+
+   <!-- modal atau pop up game selesai -->
+   <div class="modal fade" id="exampleModal"  aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Game Selesai</h1>
+        </div>
+        <div class="modal-body">
+          text content
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="resetGame()">Main Lagi</button>
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal" onclick="leaveRoom()">Loby</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- modal atau pop up input nama -->
+  <div class="modal fade" id="form-nama"  aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Input Nama</h1>
+        </div>
+        <div class="modal-body">
+          <label for="nama-player">Masukkan Nama</label>
+          <input type="text" class="form-control" id="nama-player" placeholder="nama">
+        </div>
+        <div class="modal-footer">
+          <button type="submit" id="btn-submit" class="btn btn-primary" data-bs-dismiss="modal" >Submit</button>
+          <button type="submit"  class="btn btn-danger" data-bs-dismiss="modal">close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- audio and sound game -->
+  <audio id="sound-dadu" src="src/sound/roll-dice.mp3"></audio> <!-- sound dadu -->
+  <audio id="sound-moved" src="src/sound/player-move.mp3"></audio> <!-- sound player moved -->
+  <audio id="sound-leader" src="src/sound/leader.mp3"></audio> <!-- sound tangga -->
+  <audio id="sound-snake" src="src/sound/snake.mp3"></audio> <!-- sound ular -->
+  <audio id="sound-winner" src="src/sound/winner.mp3"></audio> <!-- sound winner-->
+  <audio id="sound-loser" src="src/sound/loser.mp3"></audio> <!-- sound loser-->
+
+
+
+  
+
+  <!-- <div class="board">
+    <div class="player"></div>
+  </div> -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
+  <script src="	https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

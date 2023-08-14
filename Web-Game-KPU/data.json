@@ -1,0 +1,18 @@
+ [
+  { 
+    "pertanyaan": "Apa ibu kota Indonesia?",
+    "jawaban": "Jakarta"
+  },
+  {
+    "pertanyaan": "Berapa hasil dari 4 + 5?",
+    "jawaban": "9"
+  },
+  {
+    "pertanyaan": "apa singkatan dari Komisi pemilihan umum ?",
+    "jawaban": "KPU"
+  },
+  {
+    "pertanyaan": "singkatan dari calon legislatif?",
+    "jawaban": "caleg"
+  }
+]
